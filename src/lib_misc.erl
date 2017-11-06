@@ -60,4 +60,10 @@ odds_and_evens_acc([H | T], Odds, Evens) ->
     0 -> odds_and_evens_acc(T, Odds, [H | Evens])
   end;
 odds_and_evens_acc([], Odds, Evens) ->
-  {Odds, Evens}.
+  {lists:reverse(Odds), lists:reverse(Evens)}.
+
+%% 2> lib_misc:odds_and_evens2([1,2,3,4,5,6]).
+%% {[5,3,1],[6,4,2]}
+
+%% 2> lib_misc:odds_and_evens2([1,2,3,4,5,6]).
+%% {[1,3,5],[2,4,6]}
