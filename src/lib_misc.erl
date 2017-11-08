@@ -2,7 +2,7 @@
 -author("ltoddy").
 
 %% API
--export([for/3, qsort/1, pythag/1, perms/1, odds_and_evens1/1, odds_and_evens2/1]).
+-export([for/3, qsort/1, pythag/1, perms/1, odds_and_evens1/1, odds_and_evens2/1, sqrt/1]).
 
 for(Max, Max, F) -> [F(Max)];
 for(I, Max, F) -> [F(I) | for(I + 1, Max, F)].
@@ -67,3 +67,22 @@ odds_and_evens_acc([], Odds, Evens) ->
 
 %% 2> lib_misc:odds_and_evens2([1,2,3,4,5,6]).
 %% {[1,3,5],[2,4,6]}
+
+sqrt(X) when X < 0 ->
+  error({squareRootNegativeArgument, X});
+sqrt(X) ->
+  math:sqrt(X).
+
+%%  1> math:sqrt(-1).
+%%  ** exception error: an error occurred when evaluating an arithmetic expression
+%%  in function  math:sqrt/1
+%%  called as math:sqrt(-1)
+%%  2> c(lib_misc).
+%%  {ok,lib_misc}
+%%  3> li
+%%  lib         lib_misc    lists
+%%  3> lib
+%%  lib         lib_misc
+%%  3> lib_misc:sqrt(-1).
+%%  ** exception error: {squareRootNegativeArgument,-1}
+%%  in function  lib_misc:sqrt/1 (lib_misc.erl, line 72)
