@@ -2,7 +2,7 @@
 -author("ltoddy").
 
 %% API
--export([for/3, qsort/1, pythag/1, perms/1, odds_and_evens1/1, odds_and_evens2/1, sqrt/1]).
+-export([for/3, qsort/1, pythag/1, perms/1, odds_and_evens1/1, odds_and_evens2/1, sqrt/1, sum/1]).
 
 for(Max, Max, F) -> [F(Max)];
 for(I, Max, F) -> [F(I) | for(I + 1, Max, F)].
@@ -86,3 +86,9 @@ sqrt(X) ->
 %%  3> lib_misc:sqrt(-1).
 %%  ** exception error: {squareRootNegativeArgument,-1}
 %%  in function  lib_misc:sqrt/1 (lib_misc.erl, line 72)
+
+sum(L) -> sum(L, 0).
+
+sum([], N) -> N;
+sum([H | T], N) ->
+  sum(T, N + H).
