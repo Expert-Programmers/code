@@ -1,5 +1,5 @@
 -module(test1).
--author("me").
+-author("ltoddy").
 
 %% API
 -export([f1/0]).
