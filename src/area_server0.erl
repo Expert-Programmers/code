@@ -9,7 +9,7 @@ loop() ->
     {rectangle, Width, Height} ->
       io:format("Area of rectangle is ~p~n", [Width * Height]),
       loop();
-    {{square, Side}} ->
+    {square, Side} ->
       io:format("Area of square is ~p~n", [Side * Side]),
       loop()
   end.
