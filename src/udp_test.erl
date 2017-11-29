@@ -2,7 +2,7 @@
 -author("me").
 
 %% API
--export([start_server/0]).
+-export([start_server/0, client/1]).
 
 start_server() ->
   spawn(fun() -> server(4000) end).
