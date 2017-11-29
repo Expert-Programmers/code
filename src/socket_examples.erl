@@ -3,7 +3,8 @@
 -import(lists, [reverse/1]).
 
 %% API
--export([nano_get_url/0, nano_get_url/1, start_nano_server/0, loop/1, receive_data/2, nano_client_eval/1]).
+-export([nano_get_url/0, nano_get_url/1, start_nano_server/0, loop/1, receive_data/2, nano_client_eval/1, error_test/0,
+  error_test_server/0, error_test_server_loop/1]).
 
 
 nano_get_url() ->
@@ -53,4 +54,23 @@ nano_client_eval(Str) ->
       Val = binary_to_term(Bin),
       io:format("Client result = ~p~n", [Val]),
       gen_tcp:close(Socket)
+  end.
+
+error_test() ->
+  spawn(fun() -> error_test_server() end),
+  lib_misc:sleep(2000),
+  {ok, Socket} = gen_tcp:connect("localhost", 4321, [binary, {packet, 2}]),
+  io:format("connect to:~p~n", [Socket]).
+
+error_test_server() ->
+  {ok, Listen} = gen_tcp:listen(4321, [binary, {packet, 2}]),
+  {ok, Socket} = gen_tcp:accept(Listen),
+  error_test_server_loop(Socket).
+
+error_test_server_loop(Socket) ->
+  receive
+    {tcp, Socket, Data} ->
+      io:format("received:~p~n", [Data]),
+      _ = atom_to_list(Data),
+      error_test_server_loop(Socket)
   end.
